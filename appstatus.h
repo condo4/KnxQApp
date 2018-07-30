@@ -46,6 +46,7 @@ public:
     void setConnectionMode(const QString &connectionMode);
 
 public slots:
+    void startConnect();
     void connect();
 
 signals:

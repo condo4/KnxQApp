@@ -94,6 +94,11 @@ void AppStatus::setConnectionMode(const QString &connectionMode)
     emit connectionModeChanged();
 }
 
+void AppStatus::startConnect()
+{
+    QMetaObject::invokeMethod(this, "connect", Qt::QueuedConnection);
+}
+
 const KnxInterface *AppStatus::knx() const
 {
     return &_knx;
