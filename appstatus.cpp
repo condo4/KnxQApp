@@ -108,6 +108,9 @@ const KnxInterface *AppStatus::knx() const
 
 void AppStatus::connect()
 {
+#if defined(DEBUG_LOCAL_SERVER)
+    _knx.setServer("127.0.0.1");
+#else
     if(_localssid.size())
     {
         if(get_ssid() != _localssid)
@@ -134,6 +137,7 @@ void AppStatus::connect()
             setConnectionMode("SSH");
         }
     }
+#endif
 
     setState(50, "Start Knx Interface");
     _knx.setConnection(true);
