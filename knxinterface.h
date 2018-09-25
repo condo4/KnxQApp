@@ -36,7 +36,7 @@ public:
     void setServer(const QString &server);
 
 public slots:
-    KnxObject *getKnxObject(QString id, bool *isnew = NULL);
+    KnxObject *getKnxObject(QString id, bool *isnew = nullptr);
     void registerObject(KnxObject *t);
     void setValue(QString id, QString value);
 

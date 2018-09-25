@@ -4,7 +4,7 @@
 
 KnxObjectProxy::KnxObjectProxy(QObject *parent):
     QObject(parent),
-    _obj(NULL)
+    _obj(nullptr)
 {
 
 }
