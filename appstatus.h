@@ -23,13 +23,14 @@ class AppStatus : public QObject
     KnxInterface _knx;
     SshClient _client;
     quint16 _serverPort;
+    quint16 _serverSubPort;
     QString _localssid;
     QString _sshserver;
     QString _sshlogin;
     QString _sshpass;
 
 public:
-    explicit AppStatus(QString server_ip, quint16 server_port, QObject *parent = nullptr, QString localssid = "", QString sshserver = "", QString sshlogin = "", QString sshpass = "");
+    explicit AppStatus(QString server_ip, quint16 server_port, quint16 server_subport, QObject *parent = nullptr, QString localssid = "", QString sshserver = "", QString sshlogin = "", QString sshpass = "");
     virtual ~AppStatus();
 
     unsigned int connectionState() const;

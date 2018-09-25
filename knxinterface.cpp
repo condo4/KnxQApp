@@ -2,15 +2,17 @@
 #include "knxobject.h"
 
 #include <QEventLoop>
+#include <qnngsubscriber.h>
 
 //#define DEBUG_IFACE
 
 KnxInterface* KnxInterface::_instance = nullptr;
 
-KnxInterface::KnxInterface(QString server, quint16 port, QObject *parent):
+KnxInterface::KnxInterface(QString server, quint16 port, quint16 subport, QObject *parent):
     QObject(parent),
     _server(server),
     _port(port),
+    _subport(subport),
     _connection(0)
 {
     QObject::connect(&_sock, &QTcpSocket::connected, [this](){
@@ -33,6 +35,11 @@ void KnxInterface::setPort(const quint16 &port)
 void KnxInterface::setServer(const QString &server)
 {
     _server = server;
+}
+
+void KnxInterface::setSubport(const quint16 &subport)
+{
+    _subport = subport;
 }
 
 void KnxInterface::dataReceived()
@@ -85,6 +92,7 @@ void KnxInterface::setConnection(bool connection)
             qDebug() << "Connect to " << _server << " on " << _port;
 #endif
             _sock.connectToHost(_server, _port);
+            _sub = new QNngSubscriber(QString("tcp://%1:%2").arg(_server).arg(_subport));
         }
     }
     else
@@ -146,6 +154,8 @@ KnxObject *KnxInterface::getKnxObject(QString id, bool *isnew)
 
 void KnxInterface::registerObject(KnxObject *t)
 {
+    QByteArray topic(t->id().toStdString().c_str());
+    _sub->subscribe(topic);
     QByteArray request = QString("listen %1\n").arg(t->id()).toLocal8Bit();
 #if defined(DEBUG_IFACE)
     qDebug() << "TX: " << request;

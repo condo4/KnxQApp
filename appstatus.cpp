@@ -32,13 +32,14 @@ QString get_ssid()
 }
 
 
-AppStatus::AppStatus(QString server_ip, quint16 server_port, QObject *parent, QString localssid, QString sshserver, QString sshlogin, QString sshpass):
+AppStatus::AppStatus(QString server_ip, quint16 server_port, quint16 server_subport, QObject *parent, QString localssid, QString sshserver, QString sshlogin, QString sshpass):
     QObject(parent),
     _connectionState(0),
     _stateMessage("Click to connect"),
     _connectionMode("Not connected"),
-    _knx(server_ip, server_port),
+    _knx(server_ip, server_port, server_subport),
     _serverPort(server_port),
+    _serverSubPort(server_subport),
     _localssid(localssid),
     _sshserver(sshserver),
     _sshlogin(sshlogin),
@@ -128,6 +129,7 @@ void AppStatus::connect()
             setState(40, "Create SSH Port forwarding");
             _knx.setServer("127.0.0.1");
             _knx.setPort(_client.openRemotePortForwarding("knxcached", _serverPort));
+            _knx.setSubport(_client.openRemotePortForwarding("knxcached_sub", _serverSubPort));
             setState(50, "SSH Complete");
             setConnectionMode("SSH");
         }
