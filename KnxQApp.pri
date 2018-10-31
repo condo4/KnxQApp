@@ -11,6 +11,4 @@ SOURCES += \
     $$PWD/appstatus.cpp \
     $$PWD/knxobjectproxy.cpp
 
-include(QtSsh/QtSsh.pri)
-include(libnng.pri)
 INCLUDEPATH += "$$PWD"

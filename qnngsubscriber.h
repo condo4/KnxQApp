@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QSocketNotifier>
-#include <nng.h>
 
 
 class QNngSubscriber : public QObject

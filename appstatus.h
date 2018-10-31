@@ -21,13 +21,9 @@ class AppStatus : public QObject
     QString _stateMessage;
     QString _connectionMode;
     KnxInterface _knx;
-    SshClient _client;
     quint16 _serverPort;
     quint16 _serverSubPort;
     QString _localssid;
-    QString _sshserver;
-    QString _sshlogin;
-    QString _sshpass;
 
 public:
     explicit AppStatus(QString server_ip, quint16 server_port, quint16 server_subport, QObject *parent = nullptr, QString localssid = "", QString sshserver = "", QString sshlogin = "", QString sshpass = "");
