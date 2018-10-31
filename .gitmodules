@@ -1,6 +1,0 @@
-[submodule "QtSsh"]
-	path = QtSsh
-	url = https://github.com/condo4/QtSsh.git
-[submodule "libnng"]
-	path = libnng
-	url = https://github.com/nanomsg/nng.git
